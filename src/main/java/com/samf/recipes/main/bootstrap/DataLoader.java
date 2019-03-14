@@ -4,6 +4,7 @@ import com.samf.recipes.main.domain.*;
 import com.samf.recipes.main.repositories.CategoryRepository;
 import com.samf.recipes.main.repositories.RecipeRepository;
 import com.samf.recipes.main.repositories.UnitOfMeasureRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -11,6 +12,7 @@ import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
+@Slf4j
 @Component
 public class DataLoader implements CommandLineRunner {
 
@@ -31,6 +33,7 @@ public class DataLoader implements CommandLineRunner {
     }
 
     private void loadSpicyChickenTacos() {
+        log.debug("Starting to load Spicy Chicken Recipe");
         UnitOfMeasure unit = unitOfMeasureRepository.findByDescription("Unit").get();
         UnitOfMeasure teaspoon = unitOfMeasureRepository.findByDescription("Teaspoon").get();
         UnitOfMeasure tablespoon = unitOfMeasureRepository.findByDescription("Tablespoon").get();
@@ -97,9 +100,13 @@ public class DataLoader implements CommandLineRunner {
 
         recipeRepository.save(tacosRecipe);
 
+        log.debug("Finished loading Spicy Chicken Recipe");
+
     }
 
     private void loadGuacRecipe() {
+        log.debug("Starting to load Guacamole Recipe");
+
         UnitOfMeasure unit = unitOfMeasureRepository.findByDescription("Unit").get();
         UnitOfMeasure teaspoon = unitOfMeasureRepository.findByDescription("Teaspoon").get();
         UnitOfMeasure tablespoon = unitOfMeasureRepository.findByDescription("Tablespoon").get();
@@ -153,6 +160,8 @@ public class DataLoader implements CommandLineRunner {
         guacRecipe.addIngredients(new Ingredient (BigDecimal.valueOf(0.5), "Ripe, chopped tomato with the seeds and pulp removed.", unit));
 
         recipeRepository.save(guacRecipe);
+        log.debug("Finished loading Guacamole Recipe");
+
     }
 
 }
